@@ -3,10 +3,10 @@
     <form method="POST">
       
         <label for="idInstance"></label>
-        <input type="text" id="idInstance" name="idInstance" value="<?php if (isset($_SESSION['idInstance'])) echo $_SESSION['idInstance'] ?>" placeholder="idInstance"><br><br>
+        <input type="text" id="idInstance" name="idInstance" value="<?php echo htmlspecialchars($_SESSION['idInstance']); ?>" placeholder="idInstance"><br><br>
 
         <label for="apiToken"></label>
-        <input type="text" id="apiToken" name="apiToken" value="<?php if (isset($_SESSION['apiToken'])) echo $_SESSION['apiToken'] ?> placeholder="apiToken"><br><br>
+        <input type="text" id="apiToken" name="apiToken" value="<?php echo htmlspecialchars($_SESSION['apiToken']); ?>" placeholder="apiToken"><br><br>
 
         <button type="submit" name="action" value="getSettings">getSettings</button>
         <button type="submit" name="action" value="getStateInstance">getStateInstance</button>

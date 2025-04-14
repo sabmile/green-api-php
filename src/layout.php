@@ -8,8 +8,8 @@
 </head>
 <body>
     <div class="container">
-        <div class="content">
-            <?= $content; ?>
+        <div class="options">
+            <?= $options; ?>
         </div>
         <div class="response">
             <?= $response; ?>

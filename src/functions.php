@@ -2,7 +2,7 @@
 
 function getFunction(string $idInstance, string $apiToken, string $function):string {
 
-    $url = "https://7105.api.greenapi.com/waInstance" . $idInstance . "/" . $function . "/" . $apiToken;
+    $apiUrl = "https://7105.api.greenapi.com/waInstance" . $idInstance . DIRECTORY_SEPARATOR  . $function . DIRECTORY_SEPARATOR  . $apiToken;
 
     $payload = [];
     $headers = [
@@ -19,17 +19,18 @@ function getFunction(string $idInstance, string $apiToken, string $function):str
 
     $context = stream_context_create($options);
 
-    return file_get_contents($url, false, $context);
+    return file_get_contents($apiUrl, false, $context);
 
 }
 
 function sendMessage(string $idInstance, string $apiToken, string $phone, string $message) {
 
-    $url = "https://7105.api.greenapi.com/waInstance7105223896/sendMessage/85731e282e2147d29eaf17fb3068107bda9ed097bf774f02b0";
-    // $url = "https://7105.api.greenapi.com/waInstance{$idInstance}/sendMessage/{$apiToken}";
-    // $url = "https://7105.api.greenapi.com/waInstance" . $idInstance . DIRECTORY_SEPARATOR . "sendMessage" . DIRECTORY_SEPARATOR . $apiToken;
+    $function = "sendMessage";
+    $apiUrl = "https://7105.api.greenapi.com/waInstance" . $idInstance . DIRECTORY_SEPARATOR . $function . DIRECTORY_SEPARATOR . $apiToken;
 
-    var_dump($url);
+    $headers = [
+        'Content-type: application/x-www-form-urlencoded',
+    ];
 
     $chatId = $phone . '@c.us';
     $data = array(
@@ -39,7 +40,7 @@ function sendMessage(string $idInstance, string $apiToken, string $phone, string
 
     $options = array(
         'http' => array(
-            'header' => "Content-Type: application/json",
+            'header' => $headers,
             'method' => 'POST',
             'content' => json_encode($data)
         )
@@ -47,24 +48,24 @@ function sendMessage(string $idInstance, string $apiToken, string $phone, string
 
     $context = stream_context_create($options);
 
-    return file_get_contents($url, false, $context);
+    return file_get_contents($apiUrl, false, $context);
 
 }
 
-function sendFileByUrl(string $idInstance, string $apiToken, string $phone, string $url) {
+function sendFileByUrl(string $idInstance, string $apiToken, string $phone, string $fileUrl) {
 
-    $url = 'https://7105.api.greenapi.com/waInstance7105223896/sendFileByUrl/85731e282e2147d29eaf17fb3068107bda9ed097bf774f02b0';
-    // $url = "https://7105.api.greenapi.com/waInstance" . $idInstance . "/sendMessage/" . $apiToken;
-
+    $function = 'sendFileByUrl';
+    $apiUrl = "https://7105.api.greenapi.com/waInstance" . $idInstance . DIRECTORY_SEPARATOR  . $function . DIRECTORY_SEPARATOR  . $apiToken;
+    
     $chatId = $phone . '@c.us';
     $data = [
         'chatId' => $chatId, 
-        "urlFile" => 'https://avatars.mds.yandex.net/get-mpic/4880383/img_id8820779778077523372.jpeg/orig',
+        "urlFile" => $fileUrl,
         "fileName" => "horse.png",
     ];
 
     $headers = [
-        'Content-Type: application/json',
+        'Content-Type: application/x-www-form-urlencoded',
     ];
 
     $options = [
@@ -77,9 +78,6 @@ function sendFileByUrl(string $idInstance, string $apiToken, string $phone, stri
 
     $context = stream_context_create($options);
 
-    return file_get_contents($url, false, $context);
+    return file_get_contents($apiUrl, false, $context);
    
 }
-
-
-
